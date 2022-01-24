@@ -52,7 +52,8 @@ function gitInfo {
 
 # Get a shorter path
 function shortPath {
-	current_long=$(pwd | sed 's/\/home\/ralf/~/')
+    user=$(whoami)
+	current_long=$(pwd | sed "s/\/home\/$user/~/")
 	current_short=""
 	if [ "$current_long" = "~" ]; then
         	current_short="~"
@@ -65,7 +66,7 @@ function shortPath {
 		current_long=${current_long/\~\/Videos/Videos}
 		depth=$(echo "$current_long" | tr '/' '\n' | wc -l)
 		for i in $(seq 1 $(( depth - 1 ))); do
-				#word=$(pwd | sed 's/\/home\/ralf/~/' | cut -d'/' -f "$i")
+				#word=$(pwd | sed "s/\/home\/$user/~/" | cut -d'/' -f "$i")
 				word=$(echo "$current_long" | cut -d'/' -f "$i")
 				if [ "$word" = ".config" ] || [ "$word" = "Documents" ] || [ "$word" = "Downloads" ] || [ "$word" = "Music" ] || [ "$word" = "Pictures" ] || [ "$word" = "Videos" ]; then
 					char=$word
